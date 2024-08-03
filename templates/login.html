@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta name="viewport" content="with=device-width,
+        initial-scale=1.0">
+        <title>Vocablearn</title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='image/favicon3.png') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+        <!-- <script src="https://kit.fontawesome.com/81cbcd9b09.js" crossorigin="anonymous"></script> -->
+        
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-box">
+                <h1 id="title">Log In</h1>
+                <form>
+                    <div class="input-group">
+                        
+
+                        <div class="input-field">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" placeholder="Email Id">
+                        </div>
+
+                        <div class="input-field">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="btn-field">   
+                        <button type="button" id="signinbtn" class="working">Log In</button>
+                    </div>
+                </form>
+            </div>            
+        </div>
+    </body>
+</html>

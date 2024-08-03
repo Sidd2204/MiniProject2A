@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <meta name="viewport" content="with=device-width,initial-scale=1.0">
+        <title>Vocablearn</title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename = 'images/favicon3.png') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/opening.css') }}">
+        <link href="{{ font_url1 }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ font_url2 }}">
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    </head>
+<body>
+
+    <section class="header">
+        <nav>
+            <a href="/"><img src="" alt="Vocablearn"></a>
+
+            <div class="nav-links">
+                <ul>
+                    
+                    <li><a href="login">Login</a></li>
+                    
+
+                    --
+                    <li><a href="">ABOUT</a></li>
+                    <li><a href="">COURSE</a></li>                    
+                    <li><a href="">CONTACT</a></li>
+                    --
+                    
+                </ul>
+            </div> 
+
+        </nav>
+
+    <div class="text-box">
+        <h1>English Vocabulary Enhancer</h1>
+        <p>This website is designed to help users expand and improve their
+             English language skills. By using this tool regularly, 
+             users can significantly increase their vocabulary,
+             aiding in better communication and comprehension.</p>
+
+             <a href="#jump" class="btn">Know More</a>
+             
+
+    </div>
+    </section>
+
+    <!-------------------------------FEATURES----------------------------------->
+
+    <section class="features" id="jump" >
+        <h1>Why Choose Vocablearn ?</h1>
+        <p>Vocablearn has various features for improved and better
+            user experience.</p>
+
+        <div class="row">
+            <div class="features-col">
+                <h3>Word Review</h3>
+                <img src="../static/images/review1.png">
+                <p>The user can go thought the words that they have mastered
+                    , hence can be revised.
+                </p>
+            </div>
+
+            <div class="features-col">
+                <h3>Score Viewing</h3>
+                <img src="../static/images/score.png">
+                <p>Based upon the progress and performance of the user,
+                    scores will be alloted and can be viewed in the form
+                     of graphs.
+                </p>
+            </div>
+
+            <div class="features-col">
+                <h3>Auto Word Adjustment</h3>
+                <img src="../static/images/auto1.png">
+                <p>According to the performance of the user, the difficulty level
+                    is altered by the model automatically.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-----------------------Call to Action--------------------------------->
+
+    <section class="cta">
+        <h1>New User ?</h1>
+        <a href="signup" class="btn">Get Started</a>
+    </section>
+
+    <!---------About Us------------------------------------>
+    
+    <section class="footer">
+        <h4>About Us</h4>
+        <p> gaurisasikumar04@gmail.com <br>
+        A. P. Shah Institute Of Technology</p>
+        <div class="icons">
+            <i class="fa fa-facebook"></i>
+            <i class="fa fa-twitter"></i>
+            <i class="fa fa-instagram"></i>
+            <i class="fa fa-linkedin"></i>
+        </div>
+    </section>
+
+
+
+    <script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+</body>
+</html>
