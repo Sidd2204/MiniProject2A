@@ -5,11 +5,12 @@
     font-family: 'Poppins', sans-serif;
 }
 body{
-    background: url("background2.jpg");
+    background: url("../images/background2.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     overflow: hidden;
+    height: 100vh;
 }
 
 .form-box{
@@ -21,6 +22,8 @@ body{
     height: 420px;
     overflow: hidden;
     z-index: 2;
+    margin: auto;
+    margin-top: 5%;
 }
 .login-container{
     position: absolute;
