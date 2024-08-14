@@ -1,0 +1,7 @@
+Database:
+-Create Database
+    create database mp2a;
+
+-Create Tables
+    create table if not exists login(username varchar(50) primary key, password varchar(50) not null);
+    create table if not exists profile(username varchar(50) primary key, fname varchar(25), lname varchar(25), joining datetime);
