@@ -123,7 +123,7 @@ async function handleRegister() {
   loginSection();
 }
 
-//-------->HANDLE REGISTER ACTION<--------//
+//-------->Validate Password<--------//
 
 function validatePassword() {
   const pwField = document.getElementById("registerPassword");
@@ -137,9 +137,17 @@ function validatePassword() {
     return;
   }
 
-  // function hasSpecialCharacter(){
+  const regx = /([!-/]|[:-@])/;
+  const regx2 = /[\d]/;
+  if (!regx.test(pwField.value)) {
+    errormsg.innerText = "Password must have special characters";
+    return;
+  }
 
-  // }
+  if (!regx2.test(pwField.value)) {
+    errormsg.innerText = "Password must have numeric characters";
+    return;
+  }
 
   if (!(pwField.value === cpwField.value)) {
     errormsg.innerText = "Passwords do not match";
