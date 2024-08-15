@@ -21,7 +21,7 @@ def index():
 
 @app.route("/login")
 def loginpage():
-    return render_template("newlogin.html",
+    return render_template("login.html",
                            box_url='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css',
                            font_url = 'https://kit.fontawesome.com/81cbcd9b09.js')
 
