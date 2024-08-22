@@ -29,15 +29,54 @@ def loginpage():
 
 
 
-@app.route('/homepage')
-def homepage():
-    return render_template('homepage.html')
+@app.route('/homepage/<username>')
+def homepage(username):
+    return render_template('homepage.html',
+                           username = username)
 
 
 
 
 
-@app.route("/login/handleLogin", methods=['POST',])
+@app.route('/profile/<username>')
+def profile(username):
+
+    try:
+        conn = mysql.connector.connect(host='localhost',
+                                       username='root',
+                                       password=sqlpassword,
+                                       database='mp2a')
+        
+        cursor = conn.cursor()
+
+        cursor.execute("select * from profile where username = %s;", (username,))
+        
+        result = cursor.fetchone()
+        userdata = {'username': result[0], 'fname': result[1], 'lname': result[2], 'joiningdate': str(result[3])}
+        
+                
+        return render_template('profile.html',
+                                userdata = userdata)
+    
+    #USE DOMContentLoad for better practise        
+
+    except Exception as e:
+        print("\n\n", e, "\n\n")
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+
+    return render_template('profile.html',
+                           userdata = username)
+
+
+
+
+
+@app.route("/handleLogin", methods=['POST',])
 def handleLogin():
     data = request.get_json()
     username = data['username']
@@ -71,7 +110,7 @@ def handleLogin():
 
 
 
-@app.route('/login/handleRegister', methods=['POST'])
+@app.route('/handleRegister', methods=['POST'])
 def handleRegister():
     payload = request.get_json()
     try:
