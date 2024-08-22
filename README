@@ -1,3 +1,5 @@
+To connect to database on local sql, replace username and 'sqlpassword' in conn with your own.
+
 Database:
 -Create Database
     create database mp2a;
