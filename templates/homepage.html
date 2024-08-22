@@ -7,5 +7,12 @@
 </head>
 <body>
     <h1>THIS IS HOMEPAGE</h1>
+    <h3>{{ username }}</h3>
+    <button type="button" name="{{ username }}" onclick="openProfile(name)">PROFILE</button>
+
+
+
+
+    <script src="{{ url_for('static', filename = 'scripts/homepage.js') }}"></script>
 </body>
 </html>
