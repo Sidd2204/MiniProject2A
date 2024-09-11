@@ -1,36 +1,112 @@
-<html>
-    <head>
-        <meta name="viewport" content="with=device-width,
-        initial-scale=1.0">
-        <title>Vocablearn</title>
-        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon3.png') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-        <!-- <script src="https://kit.fontawesome.com/81cbcd9b09.js" crossorigin="anonymous"></script> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocablearn</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon3.png') }}">
+    <link href='{{ box_url }}' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/newlogin.css') }}">
+    <script src="{{ font_url }}" crossorigin="anonymous"></script>
         
-    </head>
-    <body>
-        <div class="container">
-            <div class="form-box">
-                <h1 id="title">Log In</h1>
-                <form>
-                    <div class="input-group">
-                        
+</head>
+<body>
+    <div class="wrapper">
+       <nav class="nav">
+           
+           <div class="nav-button">
+               <button class="btn white-btn" id="loginBtn" onclick="login()">Login</button>
+               <button class="btn" id="registerBtn" onclick="register()">Sign Up</button>
+           </div>
+           
+       </nav>
+   <!----------------------------- Form box ----------------------------------->    
+       <div class="form-box">
+           
+           <!------------------- login form -------------------------->
+           <div class="login-container" id="login">
 
-                        <div class="input-field">
-                            <i class="fa-solid fa-envelope"></i>
-                            <input type="email" placeholder="Email Id">
-                        </div>
+               <div class="top">
+                   <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
+                   <header>Login</header>
+               </div> 
 
-                        <div class="input-field">
-                            <i class="fa-solid fa-lock"></i>
-                            <input type="password" placeholder="Password">
-                        </div>
-                    </div>
-                    <div class="btn-field">   
-                        <button type="button" id="signinbtn" class="working">Log In</button>
-                    </div>
-                </form>
-            </div>            
-        </div>
-    </body>
-</html>
+               <div class="input-box">
+                   <input type="text" class="input-field" placeholder="Username">
+                   <i class="bx bx-user"></i>
+               </div>
+
+               <div class="input-box">
+                   <input type="password" class="input-field" placeholder="Password">
+                   <i class="bx bx-lock-alt"></i>
+               </div>
+
+               <div class="input-box">
+                   <input type="submit" class="submit" value="Login">
+               </div>
+               
+           </div>
+           <!------------------- registration form -------------------------->
+
+           <div class="register-container" id="register">
+               <div class="top">
+                   <span>Already have an account? <a href="#" onclick="login()">Login</a></span>
+                   <header>Sign Up</header>
+               </div>
+
+               <div class="two-forms">
+                   <div class="input-box">
+                       <input type="text" class="input-field" placeholder="Firstname">
+                       <i class="bx bx-user"></i>
+                   </div>
+
+                   <div class="input-box">
+                       <input type="text" class="input-field" placeholder="Lastname">
+                       <i class="bx bx-user"></i>
+                   </div>
+               </div>
+
+               <div class="input-box">
+                   <input type="text" class="input-field" placeholder="Username">
+                   <i class="bx bx-envelope"></i>
+               </div>
+
+               <div class="input-box">
+                   <input type="password" class="input-field" placeholder="Password">
+                   <i class="bx bx-lock-alt"></i>
+               </div>
+
+               <div class="input-box">
+                   <input type="submit" class="submit" value="Register">
+               </div>
+               
+           </div>
+       </div>
+   </div>   
+  
+   <!---------------------------------------------------------------------------------------------->
+
+   <script>
+       var a = document.getElementById("loginBtn");
+       var b = document.getElementById("registerBtn");
+       var x = document.getElementById("login");
+       var y = document.getElementById("register");
+       function login() {
+           x.style.left = "4px";
+           y.style.right = "-520px";
+           a.className += " white-btn";
+           b.className = "btn";
+           x.style.opacity = 1;
+           y.style.opacity = 0;
+       }
+       function register() {
+           x.style.left = "-510px";
+           y.style.right = "5px";
+           a.className = "btn";
+           b.className += " white-btn";
+           x.style.opacity = 0;
+           y.style.opacity = 1;
+       }
+   </script>
+   </body>
+   </html> 
