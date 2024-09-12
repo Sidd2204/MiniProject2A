@@ -6,7 +6,7 @@
     <title>Vocablearn</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon3.png') }}">
     <link href='{{ box_url }}' rel='stylesheet'>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/newlogin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <script src="{{ font_url }}" crossorigin="anonymous"></script>
         
 </head>
@@ -15,8 +15,8 @@
        <nav class="nav">
            
            <div class="nav-button">
-               <button class="btn white-btn" id="loginBtn" onclick="login()">Login</button>
-               <button class="btn" id="registerBtn" onclick="register()">Sign Up</button>
+               <button class="btn white-btn" id="loginBtn" onclick="loginSection()">Login</button>
+               <button class="btn" id="registerBtn" onclick="registerSection()">Sign Up</button>
            </div>
            
        </nav>
@@ -27,22 +27,22 @@
            <div class="login-container" id="login">
 
                <div class="top">
-                   <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
+                   <span>Don't have an account? <a href="#" onclick="registerSection()">Sign Up</a></span>
                    <header>Login</header>
                </div> 
 
                <div class="input-box">
-                   <input type="text" class="input-field" placeholder="Username">
+                   <input type="text" class="input-field" placeholder="Username" id="loginUsername">
                    <i class="bx bx-user"></i>
                </div>
 
                <div class="input-box">
-                   <input type="password" class="input-field" placeholder="Password">
+                   <input type="password" class="input-field" placeholder="Password" id="loginPassword">
                    <i class="bx bx-lock-alt"></i>
                </div>
 
                <div class="input-box">
-                   <input type="submit" class="submit" value="Login">
+                   <input type="submit" class="submit" value="Login" onclick="handleLogin()">
                </div>
                
            </div>
@@ -50,34 +50,40 @@
 
            <div class="register-container" id="register">
                <div class="top">
-                   <span>Already have an account? <a href="#" onclick="login()">Login</a></span>
+                   <span>Already have an account? <a href="#" onclick="loginSection()">Login</a></span>
                    <header>Sign Up</header>
                </div>
 
                <div class="two-forms">
                    <div class="input-box">
-                       <input type="text" class="input-field" placeholder="Firstname">
+                       <input type="text" class="input-field" placeholder="Firstname" id="registerFirstname">
                        <i class="bx bx-user"></i>
                    </div>
 
                    <div class="input-box">
-                       <input type="text" class="input-field" placeholder="Lastname">
+                       <input type="text" class="input-field" placeholder="Lastname" id="registerLastname">
                        <i class="bx bx-user"></i>
                    </div>
                </div>
 
                <div class="input-box">
-                   <input type="text" class="input-field" placeholder="Username">
+                   <input type="text" class="input-field" placeholder="Username" id="registerUsername">
                    <i class="bx bx-envelope"></i>
                </div>
 
                <div class="input-box">
-                   <input type="password" class="input-field" placeholder="Password">
+                   <input type="password" class="input-field" placeholder="Password" id="registerPassword" oninput="validatePassword()">
                    <i class="bx bx-lock-alt"></i>
                </div>
 
                <div class="input-box">
-                   <input type="submit" class="submit" value="Register">
+                   <input type="password" class="input-field" placeholder="Confirm Password" id="registerConfirmPassword" oninput="validatePassword()">
+                   <i class="bx bx-lock-alt"></i>
+                   <p id="error-message"></p>
+                </div>
+                
+                <div class="input-box">
+                   <input type="submit" class="submit" value="Register" id="signup" onclick="handleRegister()" disabled="true">
                </div>
                
            </div>
@@ -86,27 +92,7 @@
   
    <!---------------------------------------------------------------------------------------------->
 
-   <script>
-       var a = document.getElementById("loginBtn");
-       var b = document.getElementById("registerBtn");
-       var x = document.getElementById("login");
-       var y = document.getElementById("register");
-       function login() {
-           x.style.left = "4px";
-           y.style.right = "-520px";
-           a.className += " white-btn";
-           b.className = "btn";
-           x.style.opacity = 1;
-           y.style.opacity = 0;
-       }
-       function register() {
-           x.style.left = "-510px";
-           y.style.right = "5px";
-           a.className = "btn";
-           b.className += " white-btn";
-           x.style.opacity = 0;
-           y.style.opacity = 1;
-       }
-   </script>
+   <script src="{{ url_for('static', filename='scripts/login.js') }}"></script>
+
    </body>
    </html> 
