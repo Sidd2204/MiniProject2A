@@ -2,38 +2,39 @@
 <head>
     <meta name="viewport" content="with=device-width,initial-scale=1.0">
     <title>Vocablearn</title>
-    <link rel="icon" type="image/x-icon" href="favicon3.png">
-    <link rel="stylesheet" href="homepage.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon3.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}">
 </head> 
 <body> 
 <section>
     <div class="head">
         <nav>
-            <img src="logo.png" class="logo">
-            <ul>
-                <li><img src="streak.png">Days?</li>
-            </ul>
+            <img src="../static/images/logo.png" class="logo">
+            <div class="streak">
+                <h2>39</h2>
+                <img src="../static/images/streak.png">
+            </div>
 
-            <img src="user.png" class="user-pic" onclick="togglemenu()">
+            <img src="../static/images/user.png" class="user-pic" onclick="togglemenu()">
 
             <div class="sub-menu-wrap" id="submenu">
 
                 <div class="sub-menu">
 
                     <div class="user-info">
-                        <img src="user.png">
-                        <h3>Gauri Iyer</h3>
+                        <img src="../static/images/user.png">
+                        <h3>{{ username }}</h3>
                     </div>
 
                     <hr>
 
                     <a href="#" class="sub-menu-link">
-                        <img src="profile.png">
+                        <img src="../static/images/profile.png">
                         <p>Edit profile</p>
                         <span>></span>
                     </a>
                     <a href="#" class="sub-menu-link">
-                        <img src="logout.png">
+                        <img src="../static/images/logout.png">
                         <p>Logout</p>
                         <span>></span>
                     </a>
@@ -49,21 +50,21 @@
         
             <div class="row">
                 <div class="features-col">
-                    <img src="p12.jpg" >
+                    <img src="../static/images/p12.jpg" >
                     <a href="#" class="layer">
                         <h3>Learn</h3>
                     </a>
                 </div>
 
                 <div class="features-col">
-                    <img src="p12.jpg" >
+                    <img src="../static/images/p12.jpg" >
                     <a href="#" class="layer">
                         <h3>Review</h3>
                     </a>
                 </div>
 
                 <div class="features-col">
-                    <img src="p12.jpg" >
+                    <img src="../static/images/p12.jpg" >
                     <a href="#" class="layer">
                         <h3>Your Scores</h3>
                     </a>
