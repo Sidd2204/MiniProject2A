@@ -11,7 +11,7 @@
         <nav>
             <img src="../static/images/logo.png" class="logo">
             <div class="streak">
-                <h2>39</h2>
+                <h2 id="streakdays">39</h2>
                 <img src="../static/images/streak.png">
             </div>
 
@@ -33,7 +33,7 @@
                         <p>Edit profile</p>
                         <span>></span>
                     </a>
-                    <a href="#" class="sub-menu-link">
+                    <a href="#" class="sub-menu-link" onclick="logout()">
                         <img src="../static/images/logout.png">
                         <p>Logout</p>
                         <span>></span>
@@ -82,13 +82,7 @@
  <!------------------------------------------------------------------------------------------------------------->
 
 
- <script>
-    let submenu=document.getElementById("submenu");
-
-    function togglemenu(){
-        submenu.classList.toggle("open-menu");
-    }
- </script>
+ <script src="{{ url_for('static', filename='scripts/homepage.js') }}"></script>
     
 </body>
 </html>
