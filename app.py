@@ -52,11 +52,15 @@ def profile(username):
         cursor.execute("select * from profile where username = %s;", (username,))
         
         result = cursor.fetchone()
-        userdata = {'username': result[0], 'fname': result[1], 'lname': result[2], 'joiningdate': str(result[3])}
+        if result:
+            userdata = {'username': result[0], 'fname': result[1], 'lname': result[2], 'joiningdate': str(result[3])}
         
                 
-        return render_template('profile.html',
-                                userdata = userdata)
+            return render_template('profile.html',
+                                    userdata = userdata)
+        
+        else:
+            return 
     
     #USE DOMContentLoad for better practise        
 

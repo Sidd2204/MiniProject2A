@@ -33,7 +33,7 @@ async function handleLogin() {
     return;
   }
 
-  let payload = {username: unField.value, password: pwField.value}
+  let payload = { username: unField.value, password: pwField.value };
 
   let fetchReq = await fetch("http://127.0.0.1:5000/handleLogin", {
     method: "POST",
@@ -65,8 +65,6 @@ async function handleRegister() {
   const lnField = document.getElementById("registerLastname");
   const unField = document.getElementById("registerUsername");
   const pwField = document.getElementById("registerPassword");
-  const cpwField = document.getElementById("registerConfirmPassword");
-
   //validate fields
 
   if (!(unField.value && pwField.value && fnField.value && lnField.value)) {
@@ -104,8 +102,7 @@ async function handleRegister() {
     return;
   } else if (result.otherError) {
     console.log(result.otherError);
-    throw new Error(result.otherError)
-    return;
+    throw new Error(result.otherError);
   }
 
   alert("Account Created Successfully :D");
