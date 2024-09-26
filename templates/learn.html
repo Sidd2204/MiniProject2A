@@ -1,0 +1,41 @@
+<html></html>
+  <head>
+    <meta name="viewport" content="with=device-width,initial-scale=1.0">
+    <title>Vocablearn</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon3.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/learn.css') }}">
+</head>
+<body>
+
+<section class="header">
+  <div class="card-container">
+    <div class="card" id="flipCard">
+      <div class="card-face card-front">
+        Dictionary
+      </div>
+      <div class="card-face card-back">
+        A dictionary is a listing of lexemes from the lexicon of one or more specific languages, often arranged alphabetically,
+         which may include information on definitions, usage, etymologies, pronunciations, translation, etc.
+      </div>
+    </div>
+
+    <!-- Buttons placed outside the card -->
+    <div class="button-container" id="buttonContainer">
+      <button class="btn know-btn">I know this word</button>
+      <button class="btn dont-know-btn">I don't know this word</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const card = document.getElementById('flipCard');
+  const buttonContainer = document.getElementById('buttonContainer');
+
+  card.addEventListener('click', () => {
+    card.classList.toggle('is-flipped');
+    buttonContainer.classList.toggle('show-buttons'); // Toggle visibility of the buttons
+  });
+</script>
+
+</body>
+</html>
