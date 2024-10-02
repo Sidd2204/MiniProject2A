@@ -12,8 +12,7 @@
   .header {
     width: 100vw;
     height: 100vh;
-    background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),
-                      url('background3.jpg'); 
+    background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)), url('../images/background3.jpg'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

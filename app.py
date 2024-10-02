@@ -126,23 +126,41 @@ def handleRegister():
         cursor = conn.cursor()
 
         cursor.execute("insert into login values( %s, %s );", (payload['username'], payload['password']))
-        cursor.execute("insert into profile values( %s, %s, %s, NOW() );", (payload['username'], payload['fname'], payload['lname']))
+        cursor.execute("insert into profile(username, fname, lname, joining) values( %s, %s, %s, NOW() );", (payload['username'], payload['fname'], payload['lname']))
+
+        cursor.execute("select word_id from words;")
+        word_ids = cursor.fetchall()
+        for word_id in word_ids:
+            cursor.execute("insert into userprogress(username, word_id) values( %s, %s );", (payload['username'], word_id[0]))
+
+
         conn.commit()
 
         return jsonify({})
     
     except mysql.connector.errors.IntegrityError as e:
         print("\n\n{} Error type: {}\n\n".format(e, type(e)))
-        return jsonify({'integrityError': 'ERROR => '+ str(e)})
+        return jsonify({'integrityError': 'Integrity ERROR => '+ str(e)})
 
     except Exception as e:
         print("\n\n{} Error type: {}\n\n".format(e, type(e)))
-        return jsonify({'otherError': 'ERROR => '+ str(e)})
+        return jsonify({'otherError': 'Other ERROR => '+ str(e)})
 
 
     finally:
         cursor.close()
         conn.close()
+
+
+
+
+
+@app.route("/learn")
+def learn():
+    return render_template("learn.html")
+
+
+
 
 
 

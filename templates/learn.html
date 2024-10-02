@@ -1,4 +1,4 @@
-<html></html>
+<html>
   <head>
     <meta name="viewport" content="with=device-width,initial-scale=1.0">
     <title>Vocablearn</title>
@@ -9,7 +9,7 @@
 
 <section class="header">
   <div class="card-container">
-    <div class="card" id="flipCard">
+    <div class="card" id="flipCard" onclick="flip()">
       <div class="card-face card-front">
         Dictionary
       </div>
@@ -27,15 +27,7 @@
   </div>
 </section>
 
-<script>
-  const card = document.getElementById('flipCard');
-  const buttonContainer = document.getElementById('buttonContainer');
-
-  card.addEventListener('click', () => {
-    card.classList.toggle('is-flipped');
-    buttonContainer.classList.toggle('show-buttons'); // Toggle visibility of the buttons
-  });
-</script>
+<script src="{{ url_for('static', filename='scripts/learn.js') }}"></script>
 
 </body>
 </html>
