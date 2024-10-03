@@ -33,13 +33,12 @@ async function handleLogin() {
     return;
   }
 
-  let fetchReq = await fetch("http://127.0.0.1:5000/login/handleLogin", {
+  let payload = { username: unField.value, password: pwField.value };
+
+  let fetchReq = await fetch("http://127.0.0.1:5000/handleLogin", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      username: unField.value,
-      password: pwField.value,
-    }),
+    body: JSON.stringify(payload),
   });
 
   if (!fetchReq.ok) {
@@ -49,14 +48,14 @@ async function handleLogin() {
 
   result = await fetchReq.json();
 
-  unField.value = "";
-  pwField.value = "";
-
   if (result.status === "error") {
     alert("Wrong Credentials");
   } else {
-    window.location.href = "http://127.0.0.1:5000/homepage";
+    window.location.href = `http://127.0.0.1:5000/homepage/${unField.value}`;
   }
+
+  unField.value = "";
+  pwField.value = "";
 }
 
 //-------->HANDLE REGISTER ACTION<--------//
@@ -66,8 +65,6 @@ async function handleRegister() {
   const lnField = document.getElementById("registerLastname");
   const unField = document.getElementById("registerUsername");
   const pwField = document.getElementById("registerPassword");
-  const cpwField = document.getElementById("registerConfirmPassword");
-
   //validate fields
 
   if (!(unField.value && pwField.value && fnField.value && lnField.value)) {
@@ -75,16 +72,9 @@ async function handleRegister() {
     return;
   }
 
-  if (!(pwField.value === cpwField.value)) {
-    alert("Passwords do not match");
-    pwField.value = "";
-    cpwField.value = "";
-    return;
-  }
-
   //make http post
 
-  const fetchReq = await fetch("http://127.0.0.1:5000/login/handleRegister", {
+  const fetchReq = await fetch("http://127.0.0.1:5000/handleRegister", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -112,7 +102,7 @@ async function handleRegister() {
     return;
   } else if (result.otherError) {
     console.log(result.otherError);
-    return;
+    throw new Error(result.otherError);
   }
 
   alert("Account Created Successfully :D");
