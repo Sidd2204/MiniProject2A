@@ -12,18 +12,32 @@ document.addEventListener("DOMContentLoaded", getWords);
 var words = [];
 var username = "";
 var score = 0;
+var userlevel = 1;
+
+//GET WORDS AND USER LEVEL
 async function getWords() {
   username = window.location.href.split("/");
   username = username[username.length - 1];
 
-  let result = await fetch(`http://127.0.0.1:5000/getwords/${username}`);
-
-  if (!result.ok) {
+  //GET WORDS REQUEST
+  let wordreq = await fetch(`http://127.0.0.1:5000/getwords/${username}`);
+  if (!wordreq.ok) {
     console.log("RESULT NOT OK");
     return;
   }
-  words = await result.json();
+  words = await wordreq.json();
   console.log(words);
+
+  //GET USERLEVEL REQUEST
+  let userlevelreq = await fetch(
+    `http://127.0.0.1:5000/getuserlevel/${username}`
+  );
+  if (!userlevelreq.ok) {
+    console.log("RESULT NOT OK");
+    return;
+  }
+  userlevel = await userlevelreq.json();
+  console.log("Initial fetch: ", userlevel);
 
   displayNextWord();
 }
@@ -46,7 +60,7 @@ async function handleAnswer(answer) {
     }
 
     score += 100;
-    console.log("I KNOW");
+    console.log("I KNOW", score);
   } else {
     words[wordIndex].incorrect_answers += 1;
 
@@ -55,13 +69,35 @@ async function handleAnswer(answer) {
     }
 
     score -= 50;
-    console.log("I DON'T KNOW");
+    console.log("I DON'T KNOW", score);
   }
 
   if (wordIndex === 4) {
     console.log(words);
-    alert("YOUR SCORE IS 1000");
+    alert(`YOUR SCORE IS ${score}`);
+    if (score > 300 && userlevel.userlevel < 4) {
+      userlevel.userlevel += 1;
+    } else if (score < 0 && userlevel.userlevel > 1) {
+      userlevel.userlevel -= 1;
+    }
 
+    //Update Userlevel
+    console.log("Final score: ", userlevel);
+    const updateUserlevelReq = await fetch(
+      `http://127.0.0.1:5000/updateuserlevel/${username}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userlevel),
+      }
+    );
+
+    if (!updateUserlevelReq.ok) {
+      alert("RESULT NOT OK!");
+      return;
+    }
+
+    //Update Words Data
     const updateReq = await fetch(
       `http://127.0.0.1:5000/updatewords/${username}`,
       {
@@ -76,6 +112,7 @@ async function handleAnswer(answer) {
       return;
     }
 
+    //Update Streak
     checkStreak();
 
     window.location.href = `http://127.0.0.1:5000/homepage/${username}`;

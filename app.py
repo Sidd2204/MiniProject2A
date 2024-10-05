@@ -179,16 +179,17 @@ def getwords(username):
         
         cursor = conn.cursor()
 
-        query = "select word, meaning, correct_answers, incorrect_answers, box_level, word_id from userprogress natural join words where username = %s and word_id = %s and box_level != 5;"
+        query = "select word, meaning, correct_answers, incorrect_answers, box_level, word_id from userprogress natural join words where username = %s and difficulty = (select userlevel from profile where username = %s) and box_level != 5;"
+        cursor.execute(query, (username, username))
+        result = cursor.fetchall()
 
         words = []
 
         for i in range(5):
-            word_id = str(math.floor(random.random() * 369))
-            
-            cursor.execute(query, (username, word_id))
-            result = cursor.fetchone()
-            words.append({"word": result[0], "meaning": result[1], "correct_answers": result[2], "incorrect_answers": result[3], "box_level": result[4], "word_id": result[5]})
+            word_index = math.floor(random.random() * len(result))
+            temp_word = result[word_index]
+
+            words.append({"word": temp_word[0], "meaning": temp_word[1], "correct_answers": temp_word[2], "incorrect_answers": temp_word[3], "box_level": temp_word[4], "word_id": temp_word[5]})
 
         return jsonify(words)
         
@@ -287,6 +288,67 @@ def updatestreak(username):
         query = "update streaks set laststreak = %s, streak_count = %s where username = %s;"
         cursor.execute(query, (data['laststreak'], data['streak_count'], username))
         # print("SET STREAK : ", data)
+        conn.commit()
+        
+
+        
+    except Exception as e:
+        print("\n\n", e, "\n\n")
+        return jsonify({"status": "ERROR=> " + str(e)})
+
+    finally:
+        cursor.close()
+        conn.close()
+        
+    return jsonify({"status": "ok"})
+
+
+
+
+
+@app.route("/getuserlevel/<username>")
+def getuserlevel(username):
+    try:
+        conn = mysql.connector.connect(host='localhost',
+                                        username='root',
+                                        password=sqlpassword,
+                                        database='mp2a')
+            
+        cursor = conn.cursor()
+
+        query = "select username, userlevel from profile where username = %s"
+        cursor.execute(query, (username,))
+        result = cursor.fetchone()
+            
+        return jsonify({"username": result[0], "userlevel": result[1]})
+    
+
+    except Exception as e:
+        print("\n\n", e, "\n\n")
+        return jsonify({"status": "ERROR=> " + str(e)})
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+
+
+
+@app.route("/updateuserlevel/<username>", methods = ['POST',])
+def updateuserlevel(username):
+    data = request.get_json()
+
+    try:
+        conn = mysql.connector.connect(host='localhost',
+                                        username='root',
+                                        password=sqlpassword,
+                                        database='mp2a')
+            
+        cursor = conn.cursor()
+
+        query = "update profile set userlevel = %s where username = %s;"
+        cursor.execute(query, (data['userlevel'], username))
         conn.commit()
         
 
