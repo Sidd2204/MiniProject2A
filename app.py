@@ -220,7 +220,7 @@ def updatewords(username):
 
             query = "update userprogress set box_level = %s, correct_answers = %s, incorrect_answers = %s where username = %s and word_id = %s;"
             cursor.execute(query, (word['box_level'], word['correct_answers'], word['incorrect_answers'], username, word['word_id']))
-            print(word)
+            # print(word)
             conn.commit()
         
 
@@ -367,6 +367,66 @@ def updateuserlevel(username):
 
 
 
+@app.route("/getscores/<username>")
+def getscores(username):
+    try:
+        conn = mysql.connector.connect(host='localhost',
+                                        username='root',
+                                        password=sqlpassword,
+                                        database='mp2a')
+            
+        cursor = conn.cursor()
+
+        query = "select username, score1, score2, score3, score4, score5 from scores where username = %s"
+        cursor.execute(query, (username,))
+        result = cursor.fetchone()
+            
+        return jsonify({"username": result[0], "score1": result[1], "score2": result[2], "score3": result[3], "score4": result[4], "score5": result[5]})
+    
+
+    except Exception as e:
+        print("\n\n", e, "\n\n")
+        return jsonify({"status": "ERROR=> " + str(e)})
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+
+
+
+@app.route("/updatescores/<username>", methods = ['POST',])
+def updatescores(username):
+    data = request.get_json()
+    # print("\n\n Update Scores: ", data)
+    try:
+        conn = mysql.connector.connect(host='localhost',
+                                        username='root',
+                                        password=sqlpassword,
+                                        database='mp2a')
+            
+        cursor = conn.cursor()
+
+        query = "update scores set score1 = %s, score2 = %s, score3 = %s, score4 = %s, score5 = %s  where username = %s;"
+        cursor.execute(query, (data['score1'], data['score2'], data['score3'], data['score4'], data['score5'], username))
+        conn.commit()
+
+
+    except Exception as e:
+        print("\n\n", e, "\n\n")
+        return jsonify({"status": "ERROR=> " + str(e)})
+
+    finally:
+        cursor.close()
+        conn.close()
+        
+    return jsonify({"status": "ok"})
+
+
+
+
+
 @app.route("/review/<username>")
 def review(username):
     return render_template("quiz.html")
@@ -400,6 +460,22 @@ def stats(username):
         matplotlib.pyplot.close()
 
 
+        query = "select box_level from userprogress where username = %s and box_level = 5;"
+        cursor.execute(query, (username,))
+        result = cursor.fetchall()
+        mastered_words = len(result)
+        mastered_words_progress = (mastered_words * 100) / 370
+
+
+        query = "select box_level from userprogress where username = %s and box_level != 0;"
+        cursor.execute(query, (username,))
+        result = cursor.fetchall()
+        learning_words = len(result)
+        learning_words_progress = (learning_words * 100) / 370
+
+        # print(mastered_words_progress, learning_words_progress)
+
+
     except Exception as e:
         print("\n\n", e, "\n\n")
         return jsonify({"status": "ERROR=> " + str(e)})
@@ -408,7 +484,11 @@ def stats(username):
         cursor.close()
         conn.close()
 
-    return render_template("stats.html")
+    return render_template("stats.html", 
+                           mastered_words_progress = str(mastered_words_progress), 
+                           mastered_words = str(mastered_words),
+                           learning_words_progress = learning_words_progress, 
+                           learning_words = learning_words)
 
 
 

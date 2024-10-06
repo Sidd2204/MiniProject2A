@@ -12,9 +12,10 @@ document.addEventListener("DOMContentLoaded", getWords);
 var words = [];
 var username = "";
 var score = 0;
+var scores = [];
 var userlevel = 1;
 
-//GET WORDS AND USER LEVEL
+//GET WORDS AND USER LEVEL AND SCORE
 async function getWords() {
   username = window.location.href.split("/");
   username = username[username.length - 1];
@@ -26,7 +27,16 @@ async function getWords() {
     return;
   }
   words = await wordreq.json();
-  console.log(words);
+  console.log("Words", words);
+
+  //GET SCORES REQUEST
+  let scoresreq = await fetch(`http://127.0.0.1:5000/getscores/${username}`);
+  if (!scoresreq.ok) {
+    console.log("RESULT NOT OK");
+    return;
+  }
+  scores = await scoresreq.json();
+  console.log("Initial Scores: ", scores);
 
   //GET USERLEVEL REQUEST
   let userlevelreq = await fetch(
@@ -72,9 +82,12 @@ async function handleAnswer(answer) {
     console.log("I DON'T KNOW", score);
   }
 
+  //When all words are done
   if (wordIndex === 4) {
     console.log(words);
     alert(`YOUR SCORE IS ${score}`);
+
+    //Decision for adjusting userlevel
     if (score > 300 && userlevel.userlevel < 4) {
       userlevel.userlevel += 1;
     } else if (score < 0 && userlevel.userlevel > 1) {
@@ -82,7 +95,7 @@ async function handleAnswer(answer) {
     }
 
     //Update Userlevel
-    console.log("Final score: ", userlevel);
+    console.log("Final userlevel: ", userlevel);
     const updateUserlevelReq = await fetch(
       `http://127.0.0.1:5000/updateuserlevel/${username}`,
       {
@@ -93,6 +106,27 @@ async function handleAnswer(answer) {
     );
 
     if (!updateUserlevelReq.ok) {
+      alert("RESULT NOT OK!");
+      return;
+    }
+
+    //Update Scores
+    scores.score1 = scores.score2;
+    scores.score2 = scores.score3;
+    scores.score3 = scores.score4;
+    scores.score4 = scores.score5;
+    scores.score5 = score;
+    console.log("Final scores: ", scores);
+    const updateScores = await fetch(
+      `http://127.0.0.1:5000/updatescores/${username}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(scores),
+      }
+    );
+
+    if (!updateScores.ok) {
       alert("RESULT NOT OK!");
       return;
     }
@@ -148,7 +182,7 @@ async function checkStreak() {
     }
   }
 
-  console.log(streakdata);
+  console.log("Final Streak: ", streakdata);
 
   let updatestreak = await fetch(
     `http://127.0.0.1:5000/updatestreak/${username}`,

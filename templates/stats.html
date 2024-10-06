@@ -6,6 +6,28 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/stats.css') }}">
 </head>
 <body>
+
+    <!-- Mastered Words Bar -->
+    <div id="progress-bar">
+        <div id="progress-fill" style="width: {{ mastered_words_progress}}%"></div>
+    </div>
+
+    <section id="mastered-words-number">
+        <div>Words Mastered: {{mastered_words}}</div>
+        <div>Total Words: 370</div>
+    </section>
+
+    <!-- New Words Bar -->
+    <div id="progress-bar">
+        <div id="progress-fill" style="width: {{learning_words_progress}}%"></div>
+    </div>
+
+    <section id="mastered-words-number">
+        <div>Learning Words: {{learning_words}}</div>
+        <div>Total Words: 370</div>
+    </section>
+
+    <!-- Graph -->
     <div id="graph-div">
         <img src="" id="graph">
     </div>
