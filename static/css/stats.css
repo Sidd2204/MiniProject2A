@@ -25,3 +25,31 @@ body{
   width: 60%;
   height: 480px;
 }
+
+#progress-bar{
+  width: 70%;
+  height: 40px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 36px;
+  background-color: white;
+  overflow: hidden;
+}
+
+#progress-fill{
+  height: 100%;
+  position: relative;
+  background-color: rgb(31, 200, 31);
+}
+
+#mastered-words-number{
+  margin-bottom: 48px;
+}
+
+#mastered-words-number div{
+  text-align: center;
+  font-size: 2rem;
+  color: white;
+  margin: 8px;
+}
