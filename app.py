@@ -5,10 +5,7 @@ import mysql.connector
 import random, math, os
 import matplotlib
 
-
-
 app = Flask(__name__)
-
 
 
 
@@ -20,8 +17,6 @@ def index():
 
 
 
-
-
 @app.route("/login")
 def loginpage():
     return render_template("login.html",
@@ -30,14 +25,10 @@ def loginpage():
 
 
 
-
-
 @app.route('/homepage/<username>')
 def homepage(username):
     return render_template('homepage.html',
                            username = username)
-
-
 
 
 
@@ -80,8 +71,6 @@ def profile(username):
 
 
 
-
-
 @app.route("/updateprofile/<username>", methods = ['POST',])
 def updateprofile(username):
     data = request.get_json()
@@ -109,8 +98,6 @@ def updateprofile(username):
         conn.close()
         
     return jsonify({"status": "ok"})
-
-
 
 
 
@@ -143,8 +130,6 @@ def handleLogin():
     finally:
         cursor.close()
         conn.close()
-
-
 
 
 
@@ -189,13 +174,9 @@ def handleRegister():
 
 
 
-
-
 @app.route("/learn/<username>")
 def learn(username):
     return render_template("learn.html")
-
-
 
 
 
@@ -234,8 +215,6 @@ def getwords(username):
 
 
 
-
-
 @app.route("/updatewords/<username>", methods = ['POST',])
 def updatewords(username):
     data = request.get_json()
@@ -265,8 +244,6 @@ def updatewords(username):
         conn.close()
         
     return jsonify({"status": "ok"})
-
-
 
 
 
@@ -302,8 +279,6 @@ def getstreak(username):
 
 
 
-
-
 @app.route("/updatestreak/<username>", methods = ['POST',])
 def updatestreak(username):
     data = request.get_json()
@@ -335,8 +310,6 @@ def updatestreak(username):
 
 
 
-
-
 @app.route("/getuserlevel/<username>")
 def getuserlevel(username):
     try:
@@ -361,8 +334,6 @@ def getuserlevel(username):
     finally:
         cursor.close()
         conn.close()
-
-
 
 
 
@@ -396,8 +367,6 @@ def updateuserlevel(username):
 
 
 
-
-
 @app.route("/getscores/<username>")
 def getscores(username):
     try:
@@ -422,8 +391,6 @@ def getscores(username):
     finally:
         cursor.close()
         conn.close()
-
-
 
 
 
@@ -456,13 +423,9 @@ def updatescores(username):
 
 
 
-
-
 @app.route("/review/<username>")
 def review(username):
     return render_template("quiz.html")
-
-
 
 
 
@@ -501,8 +464,6 @@ def getmasteredwords(username):
     finally:
         cursor.close()
         conn.close()
-
-
 
 
 
