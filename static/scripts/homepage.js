@@ -30,16 +30,21 @@ async function getstreak() {
 }
 
 function openLearn() {
-  console.log(username);
+  // console.log(username);
   window.location.href = `http://127.0.0.1:5000/learn/${username}`;
 }
 
 function openReview() {
-  console.log(username);
+  // console.log(username);
   window.location.href = `http://127.0.0.1:5000/review/${username}`;
 }
 
 function openStats() {
-  console.log(username);
+  // console.log(username);
   window.location.href = `http://127.0.0.1:5000/stats/${username}`;
+}
+
+function openProfile() {
+  console.log(username);
+  window.location.href = `http://127.0.0.1:5000/profile/${username}`;
 }

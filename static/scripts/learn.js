@@ -116,6 +116,9 @@ async function handleAnswer(answer) {
     scores.score3 = scores.score4;
     scores.score4 = scores.score5;
     scores.score5 = score;
+    if (score < 0) {
+      scores.score5 = 0;
+    }
     console.log("Final scores: ", scores);
     const updateScores = await fetch(
       `http://127.0.0.1:5000/updatescores/${username}`,

@@ -43,7 +43,6 @@ def homepage(username):
 
 @app.route('/profile/<username>')
 def profile(username):
-
     try:
         conn = mysql.connector.connect(host='localhost',
                                        username='root',
@@ -56,7 +55,7 @@ def profile(username):
         
         result = cursor.fetchone()
         if result:
-            userdata = {'username': result[0], 'fname': result[1], 'lname': result[2], 'joiningdate': str(result[3])}
+            userdata = {'username': result[0], 'fname': result[1], 'lname': result[2], 'joiningdate': str(result[3]), 'userlevel': str(result[4])}
         
                 
             return render_template('profile.html',
@@ -78,6 +77,38 @@ def profile(username):
 
     return render_template('profile.html',
                            userdata = username)
+
+
+
+
+
+@app.route("/updateprofile/<username>", methods = ['POST',])
+def updateprofile(username):
+    data = request.get_json()
+    try:
+        
+        conn = mysql.connector.connect(host='localhost',
+                                    username='root',
+                                    password=sqlpassword,
+                                    database='mp2a')
+        
+        cursor = conn.cursor()
+        query = "update profile set fname = %s, lname = %s where username = %s;"
+        cursor.execute(query, (data['fname'], data['lname'], username))
+        # print("\n\n",data)
+        conn.commit()
+        
+
+        
+    except Exception as e:
+        print("\n\n", e, "\n\n")
+        return jsonify({"status": "ERROR=> " + str(e)})
+
+    finally:
+        cursor.close()
+        conn.close()
+        
+    return jsonify({"status": "ok"})
 
 
 
