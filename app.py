@@ -544,6 +544,12 @@ def stats(username):
         learning_words = len(result)
         learning_words_progress = (learning_words * 100) / 370
 
+
+        query = "select count(word_id) from words;"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        totalwords = result[0][0]
+
         # print(mastered_words_progress, learning_words_progress)
 
 
@@ -559,7 +565,8 @@ def stats(username):
                            mastered_words_progress = str(mastered_words_progress), 
                            mastered_words = str(mastered_words),
                            learning_words_progress = learning_words_progress, 
-                           learning_words = learning_words)
+                           learning_words = learning_words,
+                           totalwords = totalwords)
 
 
 
