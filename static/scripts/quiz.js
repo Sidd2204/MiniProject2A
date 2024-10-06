@@ -117,6 +117,12 @@ async function getMasteredWords() {
   let words = await wordreq.json();
   console.log("MASTERED WORDS: ", words);
 
+  if (words.error) {
+    alert(words.error);
+    window.location.href = `http://127.0.0.1:5000/homepage/${username}`;
+    return;
+  }
+
   for (let iter = 0; iter < 5; iter += 1) {
     let tempoptions = [
       words[(iter + 1) % 5].meaning,
