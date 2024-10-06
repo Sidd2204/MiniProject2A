@@ -435,6 +435,46 @@ def review(username):
 
 
 
+@app.route("/getmasteredwords/<username>")
+def getmasteredwords(username):
+    try:
+        conn = mysql.connector.connect(host='localhost',
+                                        username='root',
+                                        password=sqlpassword,
+                                        database='mp2a')
+            
+        cursor = conn.cursor()
+
+        query = "select word, meaning from words natural join userprogress where username = %s and box_level = 5;"
+        cursor.execute(query, (username,))
+        result = cursor.fetchall()
+
+        if len(result) < 5:
+            return jsonify({"error": "You need to master more words :D"})
+
+        mastered_words = []
+        for i in range(5):
+            word_index = math.floor(random.random() * len(result))
+            temp_word = result.pop(word_index)
+            temp = {"word": temp_word[0], "meaning": temp_word[1]}
+            mastered_words.append(temp)
+            
+        # print(mastered_words)
+        return jsonify(mastered_words)
+    
+
+    except Exception as e:
+        print("\n\n", e, "\n\n")
+        return jsonify({"status": "ERROR=> " + str(e)})
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+
+
+
 @app.route("/stats/<username>")
 def stats(username):
     try:
@@ -452,7 +492,7 @@ def stats(username):
         scores = [result[i + 1] for i in range(5)]
         xlabels = [" ", "  ", "   ", "    ", "     "]
         matplotlib.use('agg')
-        matplotlib.pyplot.plot(xlabels, scores)
+        matplotlib.pyplot.plot(xlabels, scores, color="g")
         matplotlib.pyplot.xlabel("Practise")
         matplotlib.pyplot.ylabel("Scores")
         matplotlib.pyplot.grid()
